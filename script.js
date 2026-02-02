@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     mobileMenu.classList.toggle('hidden');
   });
 
-  // Contact form submission via Formspree
+  // Contact form submission via FormSubmit.co
   const form = document.getElementById('contactForm');
   const msg = document.getElementById('formMsg');
   const submitBtn = document.getElementById('submitBtn');
@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   form?.addEventListener('submit', async function (e) {
     e.preventDefault();
-    
+
     // UI state: Loading
     submitBtn.disabled = true;
     btnText.textContent = 'Sending...';
     msg.classList.add('hidden');
 
     const formData = new FormData(form);
-    
+
     try {
       const response = await fetch(form.action, {
         method: 'POST',

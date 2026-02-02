@@ -275,8 +275,12 @@
         </div>
 
         <div>
-          <form id="contactForm" action="https://formspree.io/contact@govindam.info" method="POST"
+          <form id="contactForm" action="https://formsubmit.co/ajax/contact@govindam.info" method="POST"
             class="bg-white p-6 rounded-xl shadow">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="New Contact Form Submission - Govindam Trust">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
             <label class="block mb-2 text-sm">Full name *</label>
             <input name="name" id="name" class="w-full border rounded px-3 py-2 mb-3" required>
 
