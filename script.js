@@ -6,26 +6,47 @@ document.addEventListener('DOMContentLoaded', function () {
     mobileMenu.classList.toggle('hidden');
   });
 
-  // Simple contact form handler (client-side only)
+  // Contact form submission via Formspree
   const form = document.getElementById('contactForm');
   const msg = document.getElementById('formMsg');
-  form?.addEventListener('submit', function (e) {
+  const submitBtn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+
+  form?.addEventListener('submit', async function (e) {
     e.preventDefault();
-    // Basic validation
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    if (!name || !email || !message) {
+    
+    // UI state: Loading
+    submitBtn.disabled = true;
+    btnText.textContent = 'Sending...';
+    msg.classList.add('hidden');
+
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        msg.textContent = 'Thank you! Your message has been sent successfully.';
+        msg.className = 'mt-3 text-sm text-green-600';
+        form.reset();
+      } else {
+        const errorData = await response.json();
+        msg.textContent = errorData.error || 'Oops! There was a problem submitting your form.';
+        msg.className = 'mt-3 text-sm text-red-500';
+      }
+    } catch (error) {
+      msg.textContent = 'Oops! There was a connection error. Please try again later.';
+      msg.className = 'mt-3 text-sm text-red-500';
+    } finally {
       msg.classList.remove('hidden');
-      msg.classList.add('text-red-500');
-      msg.textContent = 'Please fill in required fields.';
-      return;
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
     }
-    // For now, just show success (no backend)
-    msg.classList.remove('hidden');
-    msg.classList.remove('text-red-500');
-    msg.classList.add('text-green-600');
-    msg.textContent = 'Thanks! Your message was sent (client-side demo).';
-    form.reset();
   });
 });
