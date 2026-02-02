@@ -39,7 +39,7 @@
 <body class="antialiased text-gray-800 bg-white font-body">
 
   <!-- NAV -->
-  <header id="mainHeader" class="fixed w-full z-30 transition-all duration-300">
+  <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
     <nav id="mainNav" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between transition-all duration-300">
       <div class="flex items-center gap-4">
         <img src="assets/Logo.png" alt="Govindam Trust" class="h-10 w-auto">
@@ -347,19 +347,22 @@
     }
 
     // Header Scroll Effect
-    const header = document.getElementById('mainHeader');
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
+    function handleScroll() {
+      const header = document.getElementById('mainHeader');
+      const nav = document.getElementById('mainNav');
       if (window.scrollY > 20) {
-        header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-md');
+        header.classList.add('bg-white', 'shadow-md');
         nav.classList.add('py-2');
         nav.classList.remove('py-4');
       } else {
-        header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md');
+        header.classList.remove('bg-white', 'shadow-md');
         nav.classList.add('py-4');
         nav.classList.remove('py-2');
       }
-    });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('DOMContentLoaded', handleScroll); // Check on load
   </script>
 </body>
 
